@@ -19,13 +19,13 @@ public class SchemaMapping {
      */
     private Map<Attribute, Set<Attribute>> mapping;
 
-    public SchemaMapping() {
-        this.mapping = new HashMap<>();
-    }
-
     public SchemaMapping(Schema currentSchema) {
-        this();
         this.currentSchema = currentSchema;
+
+        this.mapping = new HashMap<>();
+        for (Attribute attribute : currentSchema.getAttributes()) {
+            this.mapping.putIfAbsent(attribute, new HashSet<>());
+        }
     }
 
     public Schema getCurrentSchema() {
@@ -36,6 +36,12 @@ public class SchemaMapping {
         return mapping;
     }
 
+    /**
+     * Update the schemaMapping instance with the given source and target attributes.
+     *
+     * @param sourceAttribute
+     * @param targetAttribute
+     */
     public void updateMapping(Attribute sourceAttribute, Attribute targetAttribute) {
         if (sourceAttribute == null) {
             throw new RuntimeException("Source attribute can not be found in the current schema.");
@@ -48,6 +54,11 @@ public class SchemaMapping {
         }
     }
 
+    /**
+     * Update the schema with the given latest schema.
+     *
+     * @param latestSchema is the latest schema after transformation
+     */
     public void updateSchema(Schema latestSchema) {
         this.currentSchema = latestSchema;
     }

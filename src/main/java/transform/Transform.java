@@ -1,5 +1,6 @@
 package transform;
 
+import sandbox.SchemaGeneratorSandbox;
 import schema.SchemaMapping;
 
 /**
@@ -8,10 +9,14 @@ import schema.SchemaMapping;
  */
 abstract public class Transform {
 
-    protected SchemaMapping schemaMapping;
+    protected SchemaGeneratorSandbox owner;
 
-    protected void initSchemaMapping() {
-        this.schemaMapping = new SchemaMapping();
+    public SchemaGeneratorSandbox getOwner() {
+        return owner;
+    }
+
+    public void setOwner(SchemaGeneratorSandbox owner) {
+        this.owner = owner;
     }
 
     abstract public void reformSchema();

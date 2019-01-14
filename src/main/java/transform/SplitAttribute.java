@@ -1,6 +1,9 @@
 package transform;
 
+import sandbox.SchemaGeneratorSandbox;
 import schema.Attribute;
+import schema.Schema;
+import schema.SchemaMapping;
 import util.SchemaUtils;
 
 /**
@@ -18,20 +21,24 @@ public class SplitAttribute extends Transform {
     }
 
     public void reformSchema() {
+        SchemaMapping schemaMapping = owner.getSchemaMapping();
+
         // check whether the sourceAttribute exists in the schema
-        if (!this.schemaMapping.getCurrentSchema().attributeExist(sourceAttribute)) {
-            System.out.println("Attribute does not exist.");
-            System.exit(1);
+        if (!schemaMapping.getCurrentSchema().attributeExist(sourceAttribute)) {
+            throw new RuntimeException("Attribute does not exist.");
         }
 
         if (SchemaUtils.targetAttributeExist(schemaMapping.getCurrentSchema(), targetAttributes)!=null) {
-            System.out.println("Attribute(s) already exist in the schema.");
-            System.exit(1);
+            throw new RuntimeException("Attribute(s) already exist in the schema.");
         }
 
+        Schema currentSchema = schemaMapping.getCurrentSchema();
         // here ready to execute this transform
         for (Attribute attribute : targetAttributes) {
-            this.schemaMapping.updateMapping(sourceAttribute, attribute);
+            schemaMapping.updateMapping(sourceAttribute, attribute);
+            currentSchema.addAttribute(attribute);
         }
+        schemaMapping.updateSchema(currentSchema);
+        owner.setSchemaMapping(schemaMapping);
     }
 }

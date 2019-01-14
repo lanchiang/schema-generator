@@ -9,7 +9,7 @@ import schema.Schema;
  */
 public class SchemaUtils {
 
-    public static Attribute[] targetAttributeExist(Schema schema, Attribute[] attributes) {
+    public static Attribute[] targetAttributeExist(Schema schema, Attribute... attributes) {
         return null;
     }
 }
