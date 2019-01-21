@@ -58,7 +58,7 @@ public class GenerateStepTest {
 
         Attribute sourceAttribute1 = new Attribute(new StructField("id", DataTypes.StringType, true, Metadata.empty()));
         Attribute sourceAttribute2 = new Attribute(new StructField("identifier", DataTypes.StringType, true, Metadata.empty()));
-        Attribute sourceAttribute3 = new Attribute(new StructField("base_experience", DataTypes.StringType, true, Metadata.empty()));
+        Attribute sourceAttribute3 = new Attribute(new StructField("date2", DataTypes.StringType, true, Metadata.empty()));
         Attribute targetAttribute = new Attribute(new StructField("merge", DataTypes.StringType, true, Metadata.empty()));
         Attribute[] sourceAttributes = new Attribute[3];
         sourceAttributes[0] = sourceAttribute1;

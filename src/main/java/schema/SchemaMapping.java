@@ -1,5 +1,7 @@
 package schema;
 
+import org.apache.commons.collections.map.LinkedMap;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -22,7 +24,7 @@ public class SchemaMapping {
     public SchemaMapping(Schema currentSchema) {
         this.currentSchema = currentSchema;
 
-        this.mapping = new HashMap<>();
+        this.mapping = new LinkedMap();
         for (Attribute attribute : currentSchema.getAttributes()) {
             this.mapping.putIfAbsent(attribute, new HashSet<>());
         }
@@ -49,8 +51,9 @@ public class SchemaMapping {
         if (targetAttribute != null) {
             this.mapping.putIfAbsent(sourceAttribute, new HashSet<>());
             this.mapping.get(sourceAttribute).add(targetAttribute);
-        } else {
-            this.mapping.get(sourceAttribute).remove(targetAttribute);
+            this.mapping.putIfAbsent(targetAttribute, new HashSet<>());
+//        } else {
+//            this.mapping.get(sourceAttribute).remove(targetAttribute);
         }
     }
 
